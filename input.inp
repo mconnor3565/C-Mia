@@ -1,0 +1,26 @@
+seed=41977
+
+length(subunits)=20
+radius(nm)=2.5
+mass(FtsZ mass)=1.0
+
+iterations=1000000
+dt=0.000001
+
+T(kelvin)=310.0
+
+wall_collisions=0
+
+manual_diffusion_constants=0
+
+D_perp(micro m^2/s)=0.0
+D_par(micro m^2/s)=0.0
+D_rot(micro rad^2/s)=0.0
+
+eta(mPa s)= 0.00000625
+
+xlo(nm)=-500.0
+xhi(nm)=500.0
+cell_radius(nm)=350.0
+
+steps_to_skip=10
