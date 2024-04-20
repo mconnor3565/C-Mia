@@ -21,7 +21,7 @@ with open("dis_data.txt", 'w') as f:
 t,e1x, e1y, e1z, e2x, e2y, e2z = np.loadtxt("data/e2e_pos.txt", unpack=True)
 
 head_vector = np.zeros((len(t),3))
-with open("h_data.txt", 'w') as f:
+with open("data/h_data.txt", 'w') as f:
     f.write('#t hx hy hz\n')
     for i in range(len(t)):
         e_1 = np.array([e1x[i], e1y[i], e1z[i]])
@@ -39,7 +39,7 @@ with open("h_data.txt", 'w') as f:
         f.write("{} {:.4f} {:.4f} {:.4f}\n".format(t[i], head_vector[i,0], head_vector[i,1], head_vector[i,2]))
 
 disp_para = np.zeros((len(t),3))
-with open('disp_para.txt', 'w') as f:
+with open('data/disp_para.txt', 'w') as f:
     f.write('#t disp para\n')
     for i in range(len(t)):
         head = np.array([head_vector[i,0], head_vector[i,1], head_vector[i,2]])
@@ -51,8 +51,7 @@ def f(x, m, c):
     return m*x + c
 
 
-t, p, p2 = np.loadtxt(
-    'disp_para.txt', unpack=True)
+t, p, p2 = np.loadtxt('data/disp_para.txt', unpack=True)
 
 t_max = len(t)
 sample_window_fraction = 0.02
@@ -84,14 +83,15 @@ plt.figure(tight_layout=True)
 plt.plot(t_shortened, p_sq_avg_sampled, 'k-', label='Data')
 plt.plot(t_shortened, fitline, 'r--', label='Fit')
 plt.xlabel(r'$t/\tau$', fontsize=18)
-plt.ylabel(r'$\langle \theta^2 \rangle$', fontsize=18)
+plt.ylabel(r'$\langle MSD_{parallel}^2 \rangle$', fontsize=18)
 plt.title(r"$D_{{para}} = {:.4f}$".format(fit_params[0]/(2*Dimension)))
 plt.legend(fontsize=14)
 plt.savefig('plots/D_parallel.pdf')
 
 
 
-t,dx,dy,dz = np.loadtxt("dis_data.txt", unpack=True, usecols=(0,1,2,3))
+
+t,dx,dy,dz = np.loadtxt("data/dis_data.txt", unpack=True, usecols=(0,1,2,3))
 
 t_max = len(t)
 sampling_window = int(0.01 * t_max)
@@ -123,7 +123,7 @@ plt.figure(tight_layout=True)
 plt.plot(t_shortened, disp_sq_avg_sampled, 'k-', label='Data')
 plt.plot(t_shortened, fitline, 'r--', label='Fit')
 plt.xlabel(r'$t/\tau$', fontsize=18)
-plt.ylabel(r'$\langle \theta^2 \rangle$', fontsize=18)
-plt.title(r"$D_{{para}} = {:.4f}$".format(fit_params[0]/(2*Dimension)))
+plt.ylabel(r'$\langle MSD^2 \rangle$', fontsize=18)
+plt.title(r"$D_{{total}} = {:.4f}$".format(fit_params[0]/(2*Dimension)))
 plt.legend(fontsize=14)
 plt.savefig('plots/D_total.pdf')
